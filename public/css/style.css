@@ -1,0 +1,36 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+html, body, #container, #main, .tracking-image{
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.tracking-image img{
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+  z-index: 9998;
+}
+
+.tracking-image .pointer{
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  margin-left: -15px;
+  border-radius: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  z-index: 9999;
+}
