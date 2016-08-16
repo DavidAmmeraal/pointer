@@ -50,7 +50,9 @@ var MSTApp = function() {
       });
 
       var pointer = pointers.find(function(pointer){
-        return pointer.getScreen().getId() === screen.getId();
+        if(pointer.getScreen()){
+          return pointer.getScreen().getId() === screen.getId();
+        }
       });
 
       if(!pointer){
