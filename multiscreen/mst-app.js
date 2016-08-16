@@ -45,6 +45,7 @@ var MSTApp = function() {
 
   return {
     movePointer: function(screenId, args) {
+      console.log("movePointer( " + screenId + ")");
       var screen = screens.find(function(screen){
         return screen.getId() === screenId;
       });
@@ -65,11 +66,13 @@ var MSTApp = function() {
       update('pointersChanged');
     },
     createScreen: function() {
+      console.log("createScreen()");
       var screen = new Screen();
       screens.push(screen);
       return screen.getId();
     },
     destroyScreen: function(screenId){
+      console.log("destroyScreen(" + screenId + ")");
       var screen = screens.find(function(screen){
         return screen.getId() === screenId;
       });
@@ -89,11 +92,10 @@ var MSTApp = function() {
       });
 
       pointers = pointers.filter(function(pointer){
-        if(pointer.getScreen()){
-          return pointer.getScreen().getId() !== screenId;
-        }
-        return false;
+        return pointer.getScreen() && pointer.getScreen().getId() !== screenId;
       });
+
+      console.log("POINTERS ", pointers);
 
       update('pointersChanged');
     },
@@ -110,6 +112,8 @@ var MSTApp = function() {
       var screenCallback = listener.callbacks.find(function(callback){
         return callback.screenId === screenId;
       });
+
+      console.log("screenID = " + screenId);
 
       if(!screenCallback){
         screenCallback = {

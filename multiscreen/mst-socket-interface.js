@@ -3,7 +3,8 @@ var chance = require('chance');
 var MSTSocketInterface = function(app){
 
   return function(socket){
-    var screenId = null;
+
+    var screenId;
     socket.on('mst-message', function(message){
       var data = JSON.parse(message);
       var method = data.method;
