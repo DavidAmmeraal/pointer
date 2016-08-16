@@ -89,7 +89,10 @@ var MSTApp = function() {
       });
 
       pointers = pointers.filter(function(pointer){
-        return pointer.getScreen().getId() !== screenId;
+        if(pointer.getScreen()){
+          return pointer.getScreen().getId() !== screenId;
+        }
+        return false;
       });
 
       update('pointersChanged');
