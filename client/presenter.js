@@ -7,7 +7,11 @@ var trackingWrapper = jQuery('.tracking-image');
 var trackingImage = trackingWrapper.find('img');
 var pointers = {};
 
-
+/**
+ * Here we register for an event, the function that is the second argument
+ * is the callback that will be invoked when the event is triggered on the
+ * server side.
+ */
 eddie.register('pointersChanged', function(data){
 
   var rect = trackingImage[0].getBoundingClientRect();

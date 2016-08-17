@@ -106,6 +106,11 @@ var eddie = function(){
 module.exports = eddie;
 
 },{"js-cookie":33,"socket.io-client":38}],2:[function(require,module,exports){
+/**
+ * Client side implementation for the trackpad screen. Off course this should
+ * chopped up into components, but to keep it simple I've kept it in this single
+ * file for now.
+ */
 var Eddie = require('./eddie');
 var jQuery = require('jquery');
 
@@ -144,7 +149,10 @@ trackingImage.on('mousemove', function(event){
         method: 'movePointer',
         args: [x, y]
       };
-
+      /**
+       * Send the message to the server, doesn't know what transport protocol
+       * is used. This is handled by eddie.
+       */
       eddie.putLou(msg);
   }
 });

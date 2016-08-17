@@ -42,7 +42,8 @@ var env = process.env.NODE_ENV || 'development';
 app.locals.ENV = env;
 app.locals.ENV_DEVELOPMENT = env == 'development';
 
-// view engine setup
+// view engine setup, in this case we use handlebars.
+// used mainly for initial page load in this example.
 app.engine('handlebars', exphbs({
   defaultLayout: 'main',
   partialsDir: ['views/partials/']
