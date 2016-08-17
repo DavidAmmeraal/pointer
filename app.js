@@ -1,3 +1,18 @@
+/**
+ * This is file where the express application is started. Express is a
+ * "Fast, unopinionated, minimalist web framework for Node.js"
+ * (https://expressjs.com).
+ *
+ * In here we couple the Multiscreen Application to either the HTTP or
+ * websocket, and configure the HTTP/Websocket server. The actual
+ * initialization of the server is done in /bin/www
+ *
+ * The routes (how a specific requrest to URL is handled) are configured in
+ * routes/index.js
+ *
+ * We use handlebars (extension of mustache) as the templating engine.
+ */
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -14,6 +29,8 @@ var routes = require('./routes/index');
 var users = require('./routes/user');
 
 var app = express();
+
+//This is where the Multiscreen App is initialized
 var mstApp = MSTApp();
 
 //This is where we attach the websocket handler to the Express app
@@ -40,10 +57,24 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cookieParser());
+
+/**
+ * We could bind the MSTHttpInterface as a middleware to Express. But for the
+ * purpose of the demo, we only use the websocket interface right now.
+ * Developing both would be too complex in the limited time available
+ */
 //app.use(MSTHttpInterface(mstApp));
+
+//This is where the static files are served from
 app.use(express.static(path.join(__dirname, 'public')));
 
+//The default routes are handled by routes/index.js
 app.use('/', routes);
+
+/**
+ * Here we overwrite the /users route, so that it redirects to something else.
+ * You could couple this to another usermanager.
+ */
 app.use('/users', users);
 
 /// catch 404 and forward to error handler
@@ -80,6 +111,10 @@ app.use(function(err, req, res, next) {
     });
 });
 
+/**
+ * When a websocket connection is initialized handle it through
+ * multiscreen/mst-socket-interface.js
+ */
 io.on('connection', MSTSocketInterface(mstApp));
 
 module.exports = app;

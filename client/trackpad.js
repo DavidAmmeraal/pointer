@@ -36,6 +36,7 @@ trackingImage.on('mousemove', function(event){
         method: 'movePointer',
         args: [x, y]
       };
+
       eddie.putLou(msg);
   }
 });

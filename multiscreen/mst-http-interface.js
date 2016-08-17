@@ -1,7 +1,9 @@
+/**
+ * This is the HTTP interface to the MST app, not very sophisticated right now.
+ */ 
 var MSTHttpInterface = function(app){
 
   return function(req, res, next){
-    console.log("Multiscreen Toolkit, handle HTTP request!");
     var screenId;
 
     console.log(app.screenExists(req.cookies.mstScreenId));

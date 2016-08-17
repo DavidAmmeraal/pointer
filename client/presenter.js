@@ -21,8 +21,8 @@ eddie.register('pointersChanged', function(data){
       pointers[dataPoint.screenId] = pointer;
     }
 
-    var x = (rect.right - rect.left) / 100 * dataPoint.x;
-    var y = (rect.bottom - rect.top) / 100 * dataPoint.y;
+    var x = rect.left + (rect.right - rect.left) / 100 * dataPoint.x;
+    var y = rect.top + (rect.bottom - rect.top) / 100 * dataPoint.y;
     pointer.css('transform', 'translate(' + x + 'px,' + y + 'px)');
   });
 });
