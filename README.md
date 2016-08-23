@@ -202,3 +202,64 @@ This will register a new listener to the pointersChanged event for this screen. 
 
 **'mst-unregister'**: Forwards to the unregister() function on the MST App. The client will no longer receive updates for this event. 
 
+####Client
+
+The client in this demo is very simple. It consists of a client main javascript (depending on what screentype is loaded either: client/presenter.js or client/trackpad.js)and eddie.js.
+
+#####Eddie.js
+
+Eddie allows the client to communicate with the MST Application (that is actually hidden behind an Application Server). It can communicate either through HTTP or Websocket, it will detect if the browser supports websockets, and if so, it will use that, otherwise it should fall back to HTTP (in the case of this demo, only websockets are supported). 
+
+Eddie.js exposes the following the functions to communicate with the MST App:
+
+**putLou(msg)**: To send a message to the server, used for calling methods on the MST App like this:
+
+```javascript
+eddie.putLou({
+  method: 'movePointer',
+  args: [24, 65]
+})
+```
+
+**register(event, callback)**: Allows a client to register to events that are triggered by the MST App. Can be used like this:
+
+```javascript
+eddie.register('pointersChanged', function(data){
+  console.log(data) 
+  /**
+   * OUTPUT = 
+   * {
+   *    event: 'pointersChanged',
+   *    data: [
+   *       {
+   *            screenId: 141d-f233-affd4-42efs,
+   *            x: 43,
+   *            y: 12
+   *       },
+   *       {
+   *            screenId: adsf-632k-asd4-gads,
+   *            x: 43,
+   *            y: 12
+   *       }
+   *    ]
+   *
+   */
+});
+```
+
+#####Client Main Javascript
+
+This contains the main logic for the client. In the case of this demo, there are two different kinds of clients:
+
+-Presenter = /client/presenter.js (where the image is shown with the pointers over it)
+-Trackpad = /client/trackpad.js (Where the image is also show, but the user can point on the image through mouse or touch events)
+
+These javascripts can include dependencies using the CommonJS notation like this:
+
+```javascript
+var Eddie = require('./eddie');
+```
+
+The server then uses browserify to concatenate the file and all it's dependencies into a single optimized javascript file contained in /public/js/[presenter.js, trackpad.js].
+
+You can see the client application logic inside the client/presenter.js and client/trackpad.js, I think it's pretty self explanatory. 
