@@ -26,7 +26,8 @@ You can also see the application running on http://david.noterik.com:3000 and ht
 
 ##Architecture
 
-INSERT IMAGE HERE
+![Image of Yaktocat]
+(https://raw.githubusercontent.com/DavidAmmeraal/pointer/master/doc/demo-data-flow.png)
 
 ###Architecture Description
 
